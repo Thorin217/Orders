@@ -28,3 +28,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('user', 'Api\AuthController@user');
     });
 });
+
+
+Route::resource('inventory', 'Api\InventoryController');
+Route::resource('customer', 'Api\CustomerController');

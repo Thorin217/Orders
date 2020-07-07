@@ -16,10 +16,13 @@ class CreateInventoriesTable extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->string('description');
-            $table->integer('quantity_stock');
+            $table->integer('quantity_stock')->default(0);
             $table->decimal('unit_price',8,2);
             $table->decimal('percent_commission')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
         });
     }
 

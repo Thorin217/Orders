@@ -20,8 +20,8 @@ class CreateCustomersTable extends Migration
             $table->string('contact_first_name');
             $table->string('contact_last_name');
             $table->string('telephone')->nullable();
-            $table->string('cellular')->nullable();
-            $table->string('direction',255);
+            $table->string('cellphone')->nullable();
+            $table->string('address',255);
             $table->string('ncr')->nullable();
             $table->string('nit')->nullable();
             $table->string('dui');
