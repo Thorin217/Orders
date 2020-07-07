@@ -17,8 +17,7 @@ public $successStatus = 200;
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('Orders')-> accessToken;
-            $id = Auth::id();
-            return response()->json(['true' => $success, 'id' => $id], $this-> successStatus); 
+            return response()->json(['detail'=>$user, $success]); 
         } 
         else{ 
             return response()->json(['false'=>'Unauthorised'], 401); 
