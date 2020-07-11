@@ -19,8 +19,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('payment_type_id');
             $table->unsignedBigInteger('delivery_type_id');
-            $table->unsignedBigInteger('orderable_id');
-            $table->string('orderable_type');
+            $table->unsignedBigInteger('orderable_id')->nullable();
+            $table->string('orderable_type')->nullable();
             $table->decimal('total_order')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

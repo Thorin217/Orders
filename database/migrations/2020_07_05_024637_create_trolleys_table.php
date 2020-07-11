@@ -23,7 +23,7 @@ class CreateTrolleysTable extends Migration
             $table->timestamps();
 
             $table->foreign('inventory_id')->references('id')->on('inventories')->onUpdate('cascade');
-            $table->foreign('order_id')->references('id')->on('orders')->onUpdate('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

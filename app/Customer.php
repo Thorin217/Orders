@@ -17,4 +17,9 @@ class Customer extends Model
     {
         return $this->belongsTo('App\TypeCustomer', 'type_customer_id', 'id');
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

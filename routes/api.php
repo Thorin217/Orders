@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'Api\AuthController@login');
     //Route::post('signup', 'Api\AuthController@signup');
-  
+
     Route::group(['middleware' => 'auth:api'], function() {
         Route::get('logout', 'Api\AuthController@logout');
         Route::get('user', 'Api\AuthController@user');
@@ -32,3 +32,4 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::resource('inventory', 'Api\InventoryController');
 Route::resource('customer', 'Api\CustomerController');
+Route::resource('order', 'Api\OrderController');

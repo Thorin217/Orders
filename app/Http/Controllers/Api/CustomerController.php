@@ -8,10 +8,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CustomerResource;
+use App\Http\Requests\StoreCustomer;
+use App\Http\Requests\UpdateCustomer;
+use App\Helpers\ResizeImage;
 
 
 class CustomerController extends Controller
 {
+    use ResizeImage;
+
     public function __construct()
     {
         $this->middleware('auth:api');
@@ -45,11 +50,29 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCustomer $request)
     {
         $user = User::find(Auth::id());
 
-        $customer = Customer::create($request->all());
+        if($request->file('attached'))
+        {
+            $path = $this->resize($request->file('attached'));
+        }
+
+
+        $customer = Customer::create([
+            'type_customer_id'      => $request->type_customer,
+            'business_name'         => $request->business_name ?? null,
+            'contact_first_name'    => $request->first_name,
+            'contact_last_name'     => $request->last_name,
+            'telephone'             => $request->telephone ?? null,
+            'cellphone'             => $request->cellphone ?? null,
+            'address'               => $request->address,
+            'ncr'                   => $request->ncr ?? null,
+            'nit'                   => $request->nit ?? null,
+            'dui'                   => $request->dui,
+            'attached'              => $path ?? null,
+        ]);
 
         return response()->json([
             'message'           =>  'Cliente agregado con éxito',
@@ -91,11 +114,22 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCustomer $request, $id)
     {
         $customer = Customer::findOrFail($id);
 
-        $customer->update($request->all());
+        $customer->update([
+            'type_customer_id'      => $request->type_customer,
+            'business_name'         => $request->business_name ?? null,
+            'contact_first_name'    => $request->first_name,
+            'contact_last_name'     => $request->last_name,
+            'telephone'             => $request->telephone ?? null,
+            'cellphone'             => $request->cellphone ?? null,
+            'address'               => $request->address,
+            'ncr'                   => $request->ncr ?? null,
+            'nit'                   => $request->nit ?? null,
+            'dui'                   => $request->dui,
+        ]);
 
         return response()->json([
             'message'           =>  'Cliente actualizado con éxito',
