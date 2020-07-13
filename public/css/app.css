@@ -17882,6 +17882,19 @@ body {
   font-family: "Varela Round", sans-serif;
 }
 
+.invalid-feedback {
+  --text-opacity: 1;
+  color: #fc8181;
+  color: rgba(252, 129, 129, var(--text-opacity));
+  font-size: 0.75rem;
+}
+
+.is-invalid {
+  --border-opacity: 1;
+  border-color: #f56565;
+  border-color: rgba(245, 101, 101, var(--border-opacity));
+}
+
 @media (min-width: 640px){
   .sm\:space-y-0 > :not(template) ~ :not(template){
     --space-y-reverse: 0;

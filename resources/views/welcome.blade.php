@@ -1,100 +1,99 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
     <head>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- iconos -->
+        <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
 
         <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
         <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
+            *{
+                box-sizing: border-box;
+                padding: 0;
                 margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
             }
         </style>
     </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+    <body class="">
+        <div class="wrapper" id="app">
+            <div class="flex fixed top-0 left-0 w-full bg-white border-b">
+                <div class="flex-none text-gray-900 text-center bg-gray-500 hover:bg-gray-600 py-2" :class="[iconIsExpand ? 'active' : 'w-16']" v-on:click="iconIsExpand = !iconIsExpand">
+                  <a href="#">
+                    <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+                  </a>
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="flex-1 text-gray-700 text-center bg-transparent p-2">
+                    <div class="flex justify-end">
+                       {{--  <span>{{ Auth::user()->name }}</span> --}}
+                    </div>
                 </div>
             </div>
+            <div class="sidebar fixed z-10 left-0 border-r p-0 h-full overflow-hidden" :class="[iconIsExpand ? 'active' : 'w-16']" style="top:50px">
+                <ul class="m-0 p-0 list-none">
+                    <li class="block">
+                        <a href="#" class="block relative whitespace-no-wrap border-b overflow-hidden text-gray-700 text-left">
+                            <i class="icon-sidebar inline-block w-16 py-4 text-center leading-normal fa fa-desktop"></i>
+                            <span class="inline-block leading-normal">
+                                Dashboard
+                            </span>
+                        </a>
+                    </li>
+                    <li class="block">
+                        <a href="#" class="block relative whitespace-no-wrap border-b overflow-hidden text-gray-700 text-left">
+                            <i class="icon-sidebar inline-block w-16 py-4 text-center leading-normal fa fa-server"></i>
+                            <span class="inline-block leading-normal">
+                                Pedidos
+                            </span>
+                        </a>
+                    </li>
+                    <li class="block">
+                        <a href="#" class="block relative whitespace-no-wrap border-b overflow-hidden text-gray-700 text-left">
+                            <i class="icon-sidebar inline-block w-16 py-4 text-center leading-normal fa fa-calendar"></i>
+                            <span class="inline-block leading-normal">
+                                Clientes
+                            </span>
+                        </a>
+                    </li>
+                    <li class="block">
+                        <a href="#" class="block relative whitespace-no-wrap border-b overflow-hidden text-gray-700 text-left">
+                            <i class="icon-sidebar inline-block w-16 py-4 text-center leading-normal fa fa-envelope-o"></i>
+                            <span class="inline-block leading-normal">
+                                Inventario
+                            </span>
+                        </a>
+                    </li>
+                    <li class="block">
+                        <a href="#" class="block relative whitespace-no-wrap border-b overflow-hidden text-gray-700 text-left">
+                            <i class="icon-sidebar inline-block w-16 py-4 text-center leading-normal fa fa-table"></i>
+                            <span class="inline-block leading-normal">
+
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- sidebar end -->
+
+            <!-- Content -->
+            <div class="main relative block left-0" :class="[iconIsExpand ? 'active-main' : 'pl-16']" style="top: 50px">
+                <div class="content-main p-2">
+                    asdfasd
+                    @yield('content')
+                </div>
+            </div>
+            <!-- content end -->
         </div>
     </body>
 </html>

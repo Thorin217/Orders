@@ -45307,7 +45307,10 @@ files.keys().map(function (key) {
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    iconIsExpand: false
+  }
 });
 
 /***/ }),

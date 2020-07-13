@@ -9,3 +9,10 @@
 body{
     font-family: 'Varela Round', sans-serif;
 }
+
+.invalid-feedback{
+    @apply text-red-400 text-xs
+}
+.is-invalid{
+    @apply border-red-500
+}
