@@ -16,31 +16,27 @@
     transition: all .2s ease-in-out;
 }
 
-li:hover{
-    background-color: #eee
-}
-
 .icon-sidebar{
     -webkit-animation-duration: .7s;
-          -moz-animation-duration: .7s;
-          -o-animation-duration: .7s;
-          animation-duration: .7s;
-          -webkit-animation-fill-mode: both;
-          -moz-animation-fill-mode: both;
-          -o-animation-fill-mode: both;
-          animation-fill-mode: both;
+    -moz-animation-duration: .7s;
+    -o-animation-duration: .7s;
+    animation-duration: .7s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
 }
 
 .icon-sidebar:hover{
     -webkit-animation-name: swing;
-            -moz-animation-name: swing;
-            -o-animation-name: swing;
-            animation-name: swing;
+    -moz-animation-name: swing;
+    -o-animation-name: swing;
+    animation-name: swing;
 }
 
 .main{
     -webkit-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 .active-main{
     padding-left: 250px;
@@ -59,10 +55,19 @@ li:hover{
     position: absolute;
     border-color: transparent;
     border-width: 10px;
-    border-bottom-color: #e2e8f0;
+    border-bottom-color: #fff;
     margin-left: -10px;
   }
 
+    .wrapper::before{
+    width: 100%;
+    height: 264px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #2d3748;
+    content: " ";
+  }
 
 @-webkit-keyframes swing {
     20% {

@@ -4,10 +4,12 @@
 
 @import "tailwindcss/utilities";
 
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&family=Poppins:wght@300&display=swap');
+
 
 body{
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    @apply text-gray-800
 }
 
 .invalid-feedback{

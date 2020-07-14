@@ -16,8 +16,20 @@
 
 <script>
     export default {
+        data() {
+            return {
+                orders:[]
+            }
+        },
+        methods: {
+            getOrders(){
+                axios.get('/api/order').then(({data})=>{
+                    console.log(data)
+                })
+            }
+        },
         mounted() {
-            console.log('Component mounted.')
-        }
+            this.getOrders()
+        },
     }
 </script>
