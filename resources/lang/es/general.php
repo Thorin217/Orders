@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'search'            => 'Buscar',
     'menu-orders'       => 'Pedidos',
     'menu-customers'    => 'Clientes',
     'menu-inventory'    => 'Inventario',
@@ -9,6 +10,6 @@ return [
         'title-orders'      => 'Lista de pedidos',
     ],
     'inventory'         => [
-        'title-inventory'   => 'Inventario'
+        'title-inventory'   => 'Inventario',
     ]
 ];

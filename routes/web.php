@@ -31,4 +31,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/orders', 'Web\OrderController@index')->name('orders.index');
 Route::get('/customers', 'Web\CustomerController@index')->name('customers.index');
+
+//routes for inventory
 Route::get('/invetories', 'Web\InventoryController@index')->name('inventories.index');
+Route::get('/inventories/all', 'Web\InventoryController@listInventory')->name('inventories.list');

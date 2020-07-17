@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('header-content')
-    <div class="flex justify-between text-white">
+    <div class="flex justify-between">
         <div class="flex-1">
-            <h3 class="text-2xl font-bold leading-10">@lang('general.orders.title-orders')</h3>
+            <h3 class="text-3xl font-bold leading-10">@lang('general.inventory.title-inventory')</h3>
         </div>
     </div>
 @endsection

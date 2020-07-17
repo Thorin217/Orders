@@ -19,7 +19,7 @@ class InventoryController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource for other client.
      *
      * @return \Illuminate\Http\Response
      */
@@ -29,7 +29,7 @@ class InventoryController extends Controller
 
         $inventory = Inventory::orderBy('description','ASC');
 
-        return InventoryResource::collection($inventory->paginate(20));
+        return InventoryResource::collection($inventory->get());
     }
 
     /**

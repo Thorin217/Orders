@@ -29,7 +29,11 @@ Route::group(['prefix' => 'auth'], function () {
     });
 });
 
-
+//routes for inventory
 Route::resource('inventory', 'Api\InventoryController');
+
+//routes for customers
 Route::resource('customer', 'Api\CustomerController');
+
+//routes for orders
 Route::resource('order', 'Api\OrderController');

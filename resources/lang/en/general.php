@@ -9,6 +9,6 @@ return [
         'title-orders'      => 'Order list'
     ],
     'inventory'         => [
-        'title-inventory'   => 'Inventory'
+        'title-inventory'   => 'Inventory',
     ]
 ];
