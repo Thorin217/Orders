@@ -9,5 +9,9 @@
 @endsection
 
 @section('content')
-    <inventories-component></inventories-component>
+    <data-table-component
+        :columns="{{json_encode($columns)}}"
+        :model="'inventario'"
+        :source="'{{route('inventories.index')}}'"
+    ></data-table-component>
 @endsection

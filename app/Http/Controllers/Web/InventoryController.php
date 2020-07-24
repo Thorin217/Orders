@@ -18,7 +18,8 @@ class InventoryController extends Controller
 
      public function index()
      {
-         return view('inventories.index');
+        $columns = Inventory::$columns;
+        return view('inventories.index', compact('columns'));
      }
 
      /**
@@ -28,10 +29,61 @@ class InventoryController extends Controller
      */
     public function listInventory(Request $request)
     {
+
         $user = User::find(Auth::id());
 
-        $inventory = Inventory::orderBy('description','ASC');
+        $column = $this->selectColumn($request->column);
 
-        return InventoryResource::collection($inventory->paginate(10));
+        $data = Inventory::SearchPaginate($column);
+
+        return InventoryResource::collection($data);
+    }
+
+    public function create()
+    {
+        return view('inventories.create-edit');
+    }
+
+    public function show($id)
+    {
+        $article = Inventory::find($id);
+        return view('inventories.detail', compact('article'));
+    }
+
+    public function edit($id)
+    {
+        $article = Inventory::find($id);
+        return view('inventories.create-edit', compact('article'));
+    }
+
+    public function destroy(Request $request)
+    {
+        foreach ($request->items as $item) {
+            $inventory = Inventory::find($item);
+            $inventory->delete();
+        }
+
+        return response()->json([
+            'message'   => 'Los elementos han sido eliminados',
+            'type'      => 'success'
+        ],200);
+    }
+
+    public function selectColumn($column)
+    {
+        switch ($column) {
+            case 'descripcion':
+                return 'description';
+                break;
+            case 'stock':
+                return 'quantity_stock';
+                break;
+            case 'precio':
+                return 'unit_price';
+                break;
+            default:
+                return 'id';
+                break;
+        }
     }
 }

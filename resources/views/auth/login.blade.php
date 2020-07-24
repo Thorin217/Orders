@@ -21,14 +21,6 @@
                background: linear-gradient(rgb(41, 19, 114),rgb(21, 26, 53 ));
                clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 100%)
             }
-
-            .content:hover{
-                transform: translateY(-10px) rotate(-1deg)
-            }
-
-            .content-form{
-                transform: 0.5s
-            }
         </style>
     </head>
     <body class="h-full bg-gray-100">

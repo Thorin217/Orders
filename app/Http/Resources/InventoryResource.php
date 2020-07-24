@@ -15,12 +15,10 @@ class InventoryResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'    => $this->id,
+            'id'            => $this->id,
             'description'   => $this->description,
             'stock'         => $this->quantity_stock,
             'price'         => $this->unit_price,
-            'commission'    => $this->percent_commission,
-            'category'      => $this->category->name ?? '',
         ];
     }
 }

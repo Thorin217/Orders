@@ -3,10 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\DataTable;
 
 class Customer extends Model
 {
+    use DataTable;
+
     protected $guarded = [];
+
+    public static $columns = ['id', 'descripcion', 'precio',  'stock'];
 
     public function getFullNameAttribute($value)
     {
