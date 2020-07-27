@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     if(Auth::check()){
         return redirect()->route('home');
     }
 
     return view('auth.login');
-});
+}); */
 
 
 Route::group(['prefix' => 'admin'], function () {
@@ -28,10 +28,12 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/orders', 'Web\OrderController@index')->name('orders.index');
+//Route::get('/home', 'HomeController@index')->name('home');
 
-//routes for inventory
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');
+/* Route::get('/orders', 'Web\OrderController@index')->name('orders.index'); */
+
+/* //routes for inventory
 Route::get('/inventories', 'Web\InventoryController@index')->name('inventories.index');
 Route::get('/inventories/all', 'Web\InventoryController@listInventory')->name('inventories.list');
 Route::get('/inventories/create', 'Web\InventoryController@create')->name('inventories.create');
@@ -45,4 +47,4 @@ Route::get('/customers/all', 'Web\CustomerController@listCustomer')->name('custo
 Route::get('/customers/create', 'Web\CustomerController@create')->name('customers.create');
 Route::get('/customers/{id}', 'Web\CustomerController@show')->name('customers.show');
 Route::get('/customers/edit/{id}', 'Web\CustomerController@edit')->name('customers.edit');
-Route::put('/customers', 'Web\CustomerController@destroy')->name('customers.destroy');
+Route::put('/customers', 'Web\CustomerController@destroy')->name('customers.destroy'); */

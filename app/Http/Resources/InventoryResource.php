@@ -19,6 +19,7 @@ class InventoryResource extends JsonResource
             'description'   => $this->description,
             'stock'         => $this->quantity_stock,
             'price'         => $this->unit_price,
+            'commission'    => $this->percent_commission
         ];
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\InventoryResource;
+use App\Http\Requests\InventoryStore;
 
 
 class InventoryController extends Controller
@@ -23,9 +24,17 @@ class InventoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = User::find(Auth::id());
+
+        if ( $request->client == 'local' ) {
+            $column = $this->selectColumn($request->column);
+
+            $data = Inventory::SearchPaginate($column);
+
+            return InventoryResource::collection($data);
+        }
 
         $inventory = Inventory::orderBy('description','ASC');
 
@@ -52,12 +61,16 @@ class InventoryController extends Controller
     {
         $user = User::find(Auth::id());
 
-        $article = Inventory::create($request->all());
+        $article = Inventory::create([
+            'description'           => $request->description,
+            'quantity_stock'        => $request->quantity_stock,
+            'unit_price'            => $request->unit_price,
+            'percent_commission'    => $request->percent_commission
+        ]);
 
         return response()->json([
             'message'           =>  'Artículo agregado con éxito',
             'typeMessage'       =>  'success',
-            'article'           =>  $article
         ],200);
     }
 
@@ -71,9 +84,7 @@ class InventoryController extends Controller
     {
         $article = Inventory::findOrFail($id);
 
-        return response()->json([
-            'article'   => new InventoryResource($article)
-        ],200);
+        return response()->json(new InventoryResource($article),200);
     }
 
     /**
@@ -94,7 +105,7 @@ class InventoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(InventoryStore $request, $id)
     {
         $article = Inventory::findOrFail($id);
 
@@ -119,10 +130,37 @@ class InventoryController extends Controller
 
         $article->delete();
 
-        return response()->json([
-            'message'           =>  'Artículo eliminado con éxito',
-            'typeMessage'       =>  'success',
-            'article'           =>  $article
-        ],200);
+        return response()->json(null,204);
+    }
+
+    public function destroyAll(Request $request)
+    {
+        foreach ($request->items as $item) {
+            $inventory = Inventory::find($item);
+            $inventory->delete();
+        }
+
+        return response()->json(null,204);
+    }
+
+    public function selectColumn($column)
+    {
+        switch ($column) {
+            case 'descripción':
+                return 'description';
+                break;
+            case 'stock':
+                return 'quantity_stock';
+                break;
+            case 'precio':
+                return 'unit_price';
+                break;
+            case 'comisión':
+                return 'percent_commission';
+                break;
+            default:
+                return 'id';
+                break;
+        }
     }
 }

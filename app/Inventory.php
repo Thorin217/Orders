@@ -11,7 +11,7 @@ class Inventory extends Model
 
     protected $guarded = [];
 
-    public static $columns = ['id', 'descripcion', 'precio',  'stock'];
+    public static $columns = ['id', 'descripción', 'precio',  'stock', 'comisión'];
 
     public function category()
     {

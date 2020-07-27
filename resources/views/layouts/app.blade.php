@@ -28,45 +28,61 @@
          <div class="wrapper flex flex-stretch overflow-hidden w-full relative" id="app">
              <div class="sidebar fixed z-30 left-0 top-0 p-0 h-full overflow-hidden bg-white text-gray-700 shadow-xl" :class="[iconIsExpand ? 'active' : 'w-16']">
                  <ul class="m-0 p-0 list-none font-bold">
-                    <li class="block">
+                    {{-- <li class="block">
                         <a href="{{ route('customers.index') }}" class="block {{ (request()->route()->named('customers.index')) ? 'bg-gray-800 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left">
                             <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal">&nbsp;</span>
                             <span class="inline-block leading-normal text-xl font-bold">
                                 {{ config('app.name', 'Laravel') }}
                             </span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="block">
-                        <a href="{{ route('home') }}" class="block m-1 rounded {{ (request()->route()->named('home')) ? 'bg-gray-600 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left">
-                            <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-home"></span>
-                            <span class="inline-block leading-normal">
-                                @lang('general.menu-home')
-                            </span>
-                        </a>
+                        <router-link to="/">
+                            <a href="#" class="block m-1 rounded {{ (request()->route()->named('home')) ? 'bg-gray-600 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left">
+                                <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-home"></span>
+                                <span class="inline-block leading-normal">
+                                    @lang('general.menu-home')
+                                </span>
+                            </a>
+                        </router-link>
                     </li>
-                     <li class="block">
+                     {{-- <li class="block">
                          <a href="{{ route('orders.index') }}" class="block m-1 rounded {{ (request()->route()->named('orders.index')) ? 'bg-gray-600 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left ">
                              <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-tags"></span>
                              <span class="inline-block leading-normal">
                                  @lang('general.menu-orders')
                              </span>
                          </a>
-                     </li>
+                     </li> --}}
+                     {{-- <li class="block">
+                        <a href="#" class="block m-1 rounded  relative whitespace-no-wrap border-b overflow-hidden text-left">
+                            <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-user-group"></span>
+                            <span class="inline-block leading-normal">
+                                @lang('general.menu-customers')
+                            </span>
+                        </a>
+                     </li> --}}
+
                      <li class="block">
-                         <a href="{{ route('customers.index') }}" class="block m-1 rounded {{ (request()->route()->named('customers.index')) ? 'bg-gray-600 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left">
-                             <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-user-group"></span>
-                             <span class="inline-block leading-normal">
-                                 @lang('general.menu-customers')
-                             </span>
-                         </a>
-                     </li>
+                        <router-link :to="{ name: 'customers' }">
+                            <a href="#" class="block m-1 rounded {{ (request()->route()->named('home')) ? 'bg-gray-600 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left">
+                                <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-user-group"></span>
+                                <span class="inline-block leading-normal">
+                                    @lang('general.menu-customers')
+                                </span>
+                            </a>
+                        </router-link>
+                    </li>
+
                      <li class="block">
-                         <a href="{{ route('inventories.index') }}" class="block m-1 rounded {{ (request()->route()->named('inventories.index')) ? 'bg-gray-600 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left">
-                             <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-archive"></span>
-                             <span class="inline-block leading-normal">
-                                 @lang('general.menu-inventory')
-                             </span>
-                         </a>
+                        <router-link to="/inventories">
+                            <a href="#" class="block m-1 rounded {{ (request()->route()->named('inventories.index')) ? 'bg-gray-600 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left">
+                                <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-archive"></span>
+                                <span class="inline-block leading-normal">
+                                    @lang('general.menu-inventory')
+                                </span>
+                            </a>
+                        </router-link>
                      </li>
                  </ul>
              </div>
@@ -104,12 +120,9 @@
                  <!--header end-->
                  <main class="block mt-12">
                      <div class="container mx-auto px-4 mb-6 py-0 relative">
-                        <header>
-                            @yield('header-content')
-                        </header>
-                        <div class="content-main mt-8 text-sm">
-                            @yield('content')
-                        </div>
+                        <transition name="slide-fade" mode="out-in">
+                            <router-view :key="$route.fullPath"></router-view>
+                        </transition>
                     </div>
                  </main>
              </div>

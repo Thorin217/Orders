@@ -23,6 +23,9 @@ trait DataTable
         }
 
 
-        return $query->whereInput($request->search_input)->orderBy( $column, $request->direction )->paginate($request->per_page);
+        return $query
+                ->whereInput( $request->search_input )
+                ->orderBy( $column, $request->direction )
+                ->paginate( $request->per_page );
     }
 }

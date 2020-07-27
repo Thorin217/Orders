@@ -17,7 +17,9 @@
                 >
             </div>
             <div class="flex-1 text-right h-full">
-                <a :href="source + '/create'" class="self-center btn bg-gray-800 hover:bg-gray-900 text-white">Crear {{ model }}</a>
+                <router-link :to="link + 'create/item'">
+                    <button class="self-center btn bg-gray-800 hover:bg-gray-900 text-white">Crear {{ model }}</button>
+                </router-link>
             </div>
         </div>
 
@@ -76,8 +78,12 @@
                                 <td class="border-b px-2 py-4" v-for="(value, index) in item" :key="index">{{ value }}</td>
                                 <th class="border-b px-2 py-4">
                                     <div class="flex">
-                                        <a :href="source + '/' +  item.id" class="text-gray-500 px-2 focus:outline-none font-bold hover:text-gray-800"><span class="text-xl dripicons-preview" aria-hidden="true"></span></a>
-                                        <a :href="source + '/edit/' + item.id" class="text-gray-500 px-2 focus:outline-none font-bold hover:text-gray-800"><span class="text-xl dripicons-document-edit" aria-hidden="true"></span></a>
+                                        <router-link :to="link + item.id">
+                                            <button class="text-gray-500 px-2 focus:outline-none font-bold hover:text-gray-800"><span class="text-xl dripicons-preview" aria-hidden="true"></span></button>
+                                        </router-link>
+                                        <router-link :to="link + item.id + '/edit'">
+                                            <button class="text-gray-500 px-2 focus:outline-none font-bold hover:text-gray-800"><span class="text-xl dripicons-document-edit" aria-hidden="true"></span></button>
+                                        </router-link>
                                     </div>
                                 </th>
                             </tr>
@@ -117,7 +123,11 @@
                     <div class="p-0 m-0" v-else>
                         <img src="/images/empty.svg" class="object-fill  w-full h-64" alt="">
                         <p class="text-center font-bold ">ningún {{model}} coincide con los criterios dados</p>
-                        <p class="text-center mt-4 text-xs"><a :href="source + 'create'" class="btn bg-white border border-gray-800 text-gray-800 hover:bg-gray-900 hover:text-white">Crear {{ model }}</a></p>
+                        <p class="text-center mt-4 text-xs">
+                            <router-link :to="link + 'create/item'">
+                                <button type="button" class="btn bg-white border border-gray-800 text-gray-800 hover:bg-gray-900 hover:text-white">Crear {{ model }}</button>
+                            </router-link>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -127,12 +137,11 @@
     </div>
 </template>
 <script>
-import Datatable from './DataTableComponent'
-import Pagination from './PaginationComponent'
+import Swal from 'sweetalert2'
 import Dropdown from './DropdownComponent'
     export default {
-        components: { datatable: Datatable, pagination: Pagination,  dropdown: Dropdown},
-        props:['columns', 'model','source'],
+        components: { dropdown: Dropdown},
+        props:['columns', 'model','source', 'link'],
         data() {
             return {
                 query:{
@@ -154,15 +163,22 @@ import Dropdown from './DropdownComponent'
         methods: {
             getData(){
                 this.isLoading = true;
-                axios.get(`${this.source + '/all/'}?column=${this.query.column}
-                            &direction=${this.query.direction}&per_page=${this.query.per_page}
-                            &search_input=${this.query.search_input}&page=${this.query.page}`
-                        ).then(({data})=>{
+                axios
+                    .get(this.source,{
+                        params:{
+                            column: this.query.column,
+                            direction: this.query.direction,
+                            per_page: this.query.per_page,
+                            search_input: this.query.search_input,
+                            page: this.query.page,
+                            client: 'local'
+                        }
+                    }).then(({data})=>{
                         this.items = data.data
                         this.meta = data.meta
                         this.links = data.links
                     }).catch(error =>{
-                        console.log('error')
+                        toastr.warning('Ocurrió un error inesperado')
                     }).finally(()=>{
                         this.isLoading = false
                     })
@@ -216,13 +232,31 @@ import Dropdown from './DropdownComponent'
                 }
             },
             deleteItems(){
-                axios.put(this.source, {
-                    items: this.itemsSelected
-                }).then(({data})=>{
-                    this.getData()
-                    this.itemsSelected = []
-                    console.log(data)
-                })
+                let vm = this
+                  Swal.fire({
+                        title: '¿Estas seguro?',
+                        text: "Esta acción no puede deshacerse",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#2d3748',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Borrar'
+                    }).then((result) => {
+                        if (result.value) {
+                            axios
+                                .put(vm.source + '/delete/all', {
+                                    items: vm.itemsSelected
+                                }).then(({data})=>{
+                                    vm.getData()
+                                    toastr.success('Los elementos han sido eliminados')
+                                    vm.itemsSelected = []
+                                }).catch(error => {
+                                    toastr.warning('Ocurrió un error inesperado')
+                                })
+                        }else{
+                            vm.itemsSelected = []
+                        }
+                    })
             }
         },
         created() {

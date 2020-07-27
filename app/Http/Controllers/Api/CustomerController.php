@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CustomerResource;
+use App\Http\Resources\Customer as CustomerDT;
 use App\Http\Requests\StoreCustomer;
 use App\Http\Requests\UpdateCustomer;
 use App\Helpers\ResizeImage;
@@ -27,9 +28,18 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::orderBy('contact_first_name','ASC');
+
+        if ( $request->client == 'local' ) {
+            $column = $this->selectColumn($request->column);
+
+            $data = Customer::SearchPaginate($column);
+
+            return CustomerDT::collection($data);
+        }
+
+        $customers = Customer::orderBy('name','ASC');
 
         return CustomerResource::collection($customers->paginate(10));
     }
@@ -63,8 +73,7 @@ class CustomerController extends Controller
         $customer = Customer::create([
             'type_customer_id'      => $request->type_customer,
             'business_name'         => $request->business_name ?? null,
-            'contact_first_name'    => $request->first_name,
-            'contact_last_name'     => $request->last_name,
+            'name'                  => $request->name,
             'telephone'             => $request->telephone ?? null,
             'cellphone'             => $request->cellphone ?? null,
             'address'               => $request->address,
@@ -76,8 +85,6 @@ class CustomerController extends Controller
 
         return response()->json([
             'message'           =>  'Cliente agregado con éxito',
-            'typeMessage'       =>  'success',
-            'customer'           =>  $customer
         ],200);
     }
 
@@ -91,9 +98,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
 
-        return response()->json([
-            'customer'   => new CustomerResource($customer)
-        ],200);
+        return response()->json(new CustomerResource($customer),200);
     }
 
     /**
@@ -121,8 +126,7 @@ class CustomerController extends Controller
         $customer->update([
             'type_customer_id'      => $request->type_customer,
             'business_name'         => $request->business_name ?? null,
-            'contact_first_name'    => $request->first_name,
-            'contact_last_name'     => $request->last_name,
+            'name'                  => $request->name,
             'telephone'             => $request->telephone ?? null,
             'cellphone'             => $request->cellphone ?? null,
             'address'               => $request->address,
@@ -132,9 +136,7 @@ class CustomerController extends Controller
         ]);
 
         return response()->json([
-            'message'           =>  'Cliente actualizado con éxito',
-            'typeMessage'       =>  'success',
-            'customer'           =>  $customer
+            'message'           =>  'Cliente actualizado con éxito'
         ],200);
     }
 
@@ -155,5 +157,30 @@ class CustomerController extends Controller
             'typeMessage'       =>  'success',
             'customer'           =>  $customer
         ],200);
+    }
+
+
+    public function selectColumn($column)
+    {
+        switch ($column) {
+            case 'nombre':
+                return 'name';
+                break;
+            case 'entidad':
+                return 'business_name';
+                break;
+            case 'nit':
+                return 'nit';
+                break;
+            case 'ncr':
+                return 'ncr';
+                break;
+            case 'dui':
+                return 'dui';
+                break;
+            default:
+                return 'id';
+                break;
+        }
     }
 }

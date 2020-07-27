@@ -11,12 +11,12 @@ class Customer extends Model
 
     protected $guarded = [];
 
-    public static $columns = ['id', 'descripcion', 'precio',  'stock'];
+    public static $columns = ['id', 'nombre', 'entidad',  'nit', 'ncr', 'dui'];
 
-    public function getFullNameAttribute($value)
+    /* public function getFullNameAttribute($value)
     {
         return $this->contact_first_name . ' ' . $this->contact_last_name;
-    }
+    } */
 
     public function typecustomer()
     {
@@ -26,5 +26,16 @@ class Customer extends Model
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function scopeWhereInput( $query, $input )
+    {
+        if( $input )
+        {
+            return $query->where( 'name', 'LIKE', '%' . $input . '%')
+                        ->orWhere( 'nit', 'LIKE', '%' . $input . '%')
+                        ->orWhere( 'business_name', 'LIKE', '%' . $input . '%')
+                        ->orWhere( 'ncr', 'LIKE', '%' . $input . '%' );
+        }
     }
 }
