@@ -64,6 +64,16 @@
                      </li> --}}
 
                      <li class="block">
+                        <router-link :to="{ name: 'orders' }">
+                            <a href="#" class="block m-1 rounded {{ (request()->route()->named('orders.index')) ? 'bg-gray-600 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left ">
+                                <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-tags"></span>
+                                <span class="inline-block leading-normal">
+                                    @lang('general.menu-orders')
+                                </span>
+                            </a>
+                        </router-link>
+                    </li>
+                     <li class="block">
                         <router-link :to="{ name: 'customers' }">
                             <a href="#" class="block m-1 rounded {{ (request()->route()->named('home')) ? 'bg-gray-600 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left">
                                 <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-user-group"></span>

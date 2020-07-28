@@ -9,6 +9,7 @@ import EditInventory from './components/Inventory/FormInventoryComponent'
 import Customers from './components/customers/CustomersComponent'
 import DetailCustomers from './components/customers/DetailComponent'
 import EditCustomers from './components/customers/FormCustomerComponent'
+import Orders from './components/orders/OrdersComponent'
 
 Vue.use(Router)
 
@@ -16,36 +17,36 @@ export default new Router({
     mode: 'history',
     routes: [
         {
-            path: "/",
-            name: "home",
+            path: '/',
+            name: 'home',
             component: Home
         },
         {
-            path: "/inventories",
-            name: "inventories",
+            path: '/inventories',
+            name: 'inventories',
             component: Inventories
         },
         {
-            path: "/inventories/:inventory",
-            name: "inventory",
+            path: '/inventories/:inventory',
+            name: 'inventory',
             component: DetailInventory,
             props: true
         },
         {
-            path: "/inventories/:inventory/edit",
-            name: "inventoryedit",
+            path: '/inventories/:inventory/edit',
+            name: 'inventoryedit',
             component: EditInventory,
             props: true
         },
         {
-            path: "/inventories/create/item",
-            name: "inventoryadd",
+            path: '/inventories/create/item',
+            name: 'inventoryadd',
             component: EditInventory,
             props: false
         },
         {
-            path: "/customers",
-            name: "customers",
+            path: '/customers',
+            name: 'customers',
             component: Customers
         },
         {
@@ -64,6 +65,11 @@ export default new Router({
             path: '/customers/create/item',
             name: 'customeradd',
             component: EditCustomers,
+        },
+        {
+            path: '/orders',
+            name: 'orders',
+            component: Orders,
         }
 
     ]

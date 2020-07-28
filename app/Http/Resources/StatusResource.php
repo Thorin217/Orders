@@ -17,7 +17,7 @@ class StatusResource extends JsonResource
         return [
             'id'            => $this->id,
             'created'       => $this->created,
-            'processsing'   => $this->processing,
+            'processing'   => $this->processing,
             'in_route'      => $this->in_route,
             'delivered'     => $this->delivered,
             'cancelled'     => $this->cancelled
