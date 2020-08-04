@@ -22,7 +22,7 @@ class CreateTrolleysTable extends Migration
             $table->decimal('unit_total');
             $table->timestamps();
 
-            $table->foreign('inventory_id')->references('id')->on('inventories')->onUpdate('cascade');
+            $table->foreign('inventory_id')->references('id')->on('inventories')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('order_id')->references('id')->on('orders')->onUpdate('cascade')->onDelete('cascade');
         });
     }

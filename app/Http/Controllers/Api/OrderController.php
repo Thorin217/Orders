@@ -67,6 +67,7 @@ class OrderController extends Controller
         $order = $state->order()->create([
                     'customer_id'         => $request->customer,
                     'delivery_type_id'    => $request->delivery_type,
+                    'address'             => $request->address,
                     'user_id'             => $user->id,
                     'payment_type_id'     => $request->payment_type,
                     'description'         => $request->description,
@@ -178,6 +179,7 @@ class OrderController extends Controller
                     'customer_id'           => $customer->id,
                     'delivery_type_id'      => $request->delivery_type,
                     'payment_type_id'       => $request->payment_type,
+                    'address'               => $request->address,
                     'orderable_id'          => $state->id,
                     'orderable_type'        => 'App\LocalState'
                 ]);

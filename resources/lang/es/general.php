@@ -11,5 +11,8 @@ return [
     ],
     'inventory'         => [
         'title-inventory'   => 'Inventario',
+    ],
+    'customers'         => [
+        'title-customers'   => 'Clientes'
     ]
 ];

@@ -16,9 +16,10 @@ class CustomerResource extends JsonResource
     {
         return [
             'id'                => $this->id,
+            'idtype'            => $this->typecustomer->id,
             'type'              => $this->typecustomer->name,
             'business_name'     => $this->business_name,
-            'contact_name'      => $this->fullname,
+            'contact_name'      => $this->name,
             'telephone'         => $this->telephone,
             'cellphone'         => $this->cellphone,
             'address'           => $this->address,
@@ -26,7 +27,7 @@ class CustomerResource extends JsonResource
             'nit'               => $this->nit,
             'dui'               => $this->dui,
             'attached'          => $this->attached,
-            'created_at'        => $this->created_at
+            'created_at'        => \Carbon\Carbon::parse($this->created_at)->format('Y-m-d')
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\TypeCustomer;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,13 @@ Route::group(['prefix' => 'auth'], function () {
 
 //routes for inventory
 Route::resource('inventory', 'Api\InventoryController');
+Route::put('inventory/delete/all', 'Api\InventoryController@destroyAll')->name('inventory.delete.all');
 
 //routes for customers
 Route::resource('customer', 'Api\CustomerController');
+Route::get('typecustomers', function () {
+    return TypeCustomer::all();
+});
 
 //routes for orders
 Route::resource('order', 'Api\OrderController');

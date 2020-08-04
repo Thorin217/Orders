@@ -26,8 +26,7 @@ class UpdateCustomer extends FormRequest
     {
         return [
             'type_customer'         => 'required|numeric',
-            'first_name'            => 'required|max:255',
-            'last_name'             => 'required|max:255',
+            'name'                  => 'required|max:255',
             'telephone'             => 'nullable|max:15',
             'cellphone'             => 'nullable|max:15',
             'address'               => 'required|max:255',
@@ -38,6 +37,14 @@ class UpdateCustomer extends FormRequest
                                             'max:15'
                                        ],
             'dui'                   => 'required|max:15'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'type_customer.numeric' => 'El tipo seleccionado no es valido',
+            'nit.unique'            => 'El campo NIT ya ha sido tomado por otro cliente.'
         ];
     }
 }

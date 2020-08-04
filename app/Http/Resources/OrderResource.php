@@ -19,14 +19,16 @@ class OrderResource extends JsonResource
     {
         return [
             'id'                => $this->id,
-            'customer'          => $this->customer->fullname,
+            'customer'          => $this->customer->name,
             'salesman'          => $this->user->name,
             'payment_type'      => $this->payment_type->name,
             'delivery_type'     => $this->delivery_type->name,
             'total'             => $this->total_order,
+            'address'           => $this->address,
             'description'       => $this->description,
             'status'            => new StatusResource($this->orderable),
-            'articles'          => TrolleyResource::collection($this->trolleys)
+            'articles'          => TrolleyResource::collection($this->trolleys),
+            'created_at'        => \Carbon\Carbon::parse($this->created_at)->format('Y-m-d H:i A')
         ];
     }
 }

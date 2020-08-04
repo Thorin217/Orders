@@ -7,7 +7,25 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.toastr = require('toastr');
 
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-bottom-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
 
 /**
  * The following block of code may be used to automatically register your
@@ -25,9 +43,12 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import 'sweetalert2/src/sweetalert2.scss'
+import router from './router'
 
 const app = new Vue({
     el: '#app',
+    router,
     data:{
         iconIsExpand: false,
         formLogout: false,

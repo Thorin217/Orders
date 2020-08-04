@@ -146,8 +146,7 @@ return [
 
 	'attributes' => [
         'type_customer'         => 'Tipo de cliente',
-		'first_name'            => 'nombre',
-		'last_name'             => 'apellido',
+		'name'                  => 'nombre',
         'telephone'             => 'Teléfono',
         'cellphone'             => 'Teléfono celular',
         'email'                 => 'Correo',
@@ -155,6 +154,10 @@ return [
         'ncr'                   => 'NCR',
         'nit'                   => 'NIT',
         'Dui'                   => 'DUI',
+        'description'           => 'Descripción',
+        'quantity_stock'        => 'Cantidad',
+        'unit_price'            => 'Precio',
+        'percent_commission'    => 'Porcentaje de comisión'
 	],
 
 ];
