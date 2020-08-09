@@ -41,7 +41,7 @@ class CustomerController extends Controller
 
         $customers = Customer::orderBy('name','ASC');
 
-        return CustomerResource::collection($customers->paginate(10));
+        return CustomerResource::collection($customers->get());
     }
 
     /**

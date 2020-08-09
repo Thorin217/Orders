@@ -4,21 +4,34 @@
 
 @import "buttons.scss";
 
+
 @import "tailwindcss/utilities";
 
 @import "toastr";
 
+@import "vue-select/src/scss/vue-select.scss";
+
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&family=Poppins:wght@300&display=swap');
 
 
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.image-login{
+   background: linear-gradient(rgb(41, 19, 114),rgb(21, 26, 53 ));
+   clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 100%)
+}
+
 body{
     font-family: 'Poppins', sans-serif;
-    @apply text-gray-800
+    @apply text-gray-800;
 }
 
 .invalid-feedback{
-    @apply text-red-400 text-xs
+    @apply text-red-400 text-xs;
 }
 .is-invalid{
-    @apply border-red-500
+    @apply border-red-500;
 }

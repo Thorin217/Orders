@@ -290,9 +290,9 @@ export default {
         },
         getTypeCustomers(){
             axios
-                .get('/api/typecustomers')
+                .get('/api/resources')
                 .then(response => {
-                    this.types = response.data
+                    this.types = response.data.types
                 }).catch(error => {
                     toastr.warning('Ocurrió un error inesperado')
                 })

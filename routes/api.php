@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\TypeCustomer;
+use App\PaymentType;
+use App\DeliveryType;
+use App\Inventory;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +39,18 @@ Route::put('inventory/delete/all', 'Api\InventoryController@destroyAll')->name('
 
 //routes for customers
 Route::resource('customer', 'Api\CustomerController');
-Route::get('typecustomers', function () {
-    return TypeCustomer::all();
-});
 
 //routes for orders
 Route::resource('order', 'Api\OrderController');
+Route::get('resources', function () {
+    return response()->json([
+        'payments'      =>  PaymentType::select('name','id')->get(),
+        'deliveries'     =>  DeliveryType::select('name','id')->get(),
+        'types'         =>  TypeCustomer::select('name','id')->get()
+    ]);
+});
+
+Route::put('order-state/{id}', 'Api\OrderController@changeStatus');
+
+//routes fot users
+Route::resource('user', 'Api\UserController');

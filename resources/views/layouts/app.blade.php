@@ -46,22 +46,6 @@
                             </a>
                         </router-link>
                     </li>
-                     {{-- <li class="block">
-                         <a href="{{ route('orders.index') }}" class="block m-1 rounded {{ (request()->route()->named('orders.index')) ? 'bg-gray-600 text-white' : 'hover:bg-gray-400 hover:text-gray-900'}} relative whitespace-no-wrap border-b overflow-hidden text-left ">
-                             <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-tags"></span>
-                             <span class="inline-block leading-normal">
-                                 @lang('general.menu-orders')
-                             </span>
-                         </a>
-                     </li> --}}
-                     {{-- <li class="block">
-                        <a href="#" class="block m-1 rounded  relative whitespace-no-wrap border-b overflow-hidden text-left">
-                            <span class="icon-sidebar inline-block w-16 py-3 text-center leading-normal dripicons-user-group"></span>
-                            <span class="inline-block leading-normal">
-                                @lang('general.menu-customers')
-                            </span>
-                        </a>
-                     </li> --}}
 
                      <li class="block">
                         <router-link :to="{ name: 'orders' }">
@@ -117,9 +101,12 @@
                             <div v-on:mouseleave="formLogout = false" class="absolute w-64 options z-40" style="top: 60px; right: 5px">
                                 <div class="relative py-1 bg-white rounded shadow-lg">
                                 <div class="relative text-center p-2">
-                                    <a href="#" class="mt-2 block w-full bg-red-500 text-white rounded px-4 py-2 font-medium whitespace-no-wrap hover:bg-red-400 focus:outline-none focus:text-white focus:shadow-outline transition duration-300 ease-in-out">
-                                        <i class="fa fa-power-off" aria-hidden="true"></i> Cerrar sesión
-                                    </a>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="mt-2 block w-full bg-red-500 text-white rounded px-4 py-2 font-medium whitespace-no-wrap hover:bg-red-400 focus:outline-none focus:text-white focus:shadow-outline transition duration-300 ease-in-out">
+                                            <i class="fa fa-power-off" aria-hidden="true"></i> Cerrar sesión
+                                        </button>
+                                    </form>
                                 </div>
                                 </div>
                             </div>
@@ -129,7 +116,7 @@
                  </nav>
                  <!--header end-->
                  <main class="block mt-12">
-                     <div class="container mx-auto px-4 mb-6 py-0 relative">
+                     <div class="container mx-auto px-4 mb-6 py-0 relative" scroll-region>
                         <transition name="slide-fade" mode="out-in">
                             <router-view :key="$route.fullPath"></router-view>
                         </transition>

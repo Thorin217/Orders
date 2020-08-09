@@ -8,11 +8,6 @@ class Order extends Model
 {
     protected $guarded = [];
 
-    public function orderable()
-    {
-        return $this->morphTo();
-    }
-
     public function trolleys()
     {
         return $this->hasMany(Trolley::class);
@@ -36,5 +31,10 @@ class Order extends Model
     public function delivery_type()
     {
         return $this->belongsTo(DeliveryType::class);
+    }
+
+    public function ScopeIsProcessing($query)
+    {
+        # code...
     }
 }

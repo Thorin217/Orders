@@ -84,9 +84,10 @@ export default {
                     text: "Esta acción no puede deshacerse",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#2d3748',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Borrar'
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#2d3748',
+                    confirmButtonText: 'Borrar',
+                    cancelButtonText: 'Aceptar'
                 }).then((result) => {
                     if (result.value) {
                         axios

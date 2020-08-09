@@ -132,8 +132,9 @@ export default {
                     text: "Esta acción no puede deshacerse",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#2d3748',
-                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#2d3748',
+                    cancelButtonText: 'Cancelar',
                     confirmButtonText: 'Borrar'
                 }).then((result) => {
                     if (result.value) {

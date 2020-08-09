@@ -8,6 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.toastr = require('toastr');
+import vSelect from 'vue-select'
 
 toastr.options = {
     "closeButton": false,
@@ -38,6 +39,7 @@ toastr.options = {
 const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('v-select', vSelect)
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -45,10 +47,12 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
  */
 import 'sweetalert2/src/sweetalert2.scss'
 import router from './router'
+import store from './store/Store'
 
 const app = new Vue({
     el: '#app',
     router,
+    store: store,
     data:{
         iconIsExpand: false,
         formLogout: false,

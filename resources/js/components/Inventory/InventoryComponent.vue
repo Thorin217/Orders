@@ -5,7 +5,13 @@
                 <h3 class="text-3xl font-bold leading-10">Inventario</h3>
             </div>
         </div>
-        <data-table :columns="columns" :model="'inventario'" :link="'/inventories/'" :source="'/api/inventory'"></data-table>
+        <data-table 
+            :columns="columns" 
+            :model="'inventario'" 
+            :link="'/inventories/'" 
+            :source="'/api/inventory'"
+        >
+        </data-table>
     </div>
 </template>
 <script>

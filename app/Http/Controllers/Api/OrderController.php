@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Trolley;
 use App\DeliveryType;
-use App\HomeState;
-use App\LocalState;
 use App\Http\Resources\OrderResource;
 use Illuminate\Support\Facades\Auth;
 use App\Customer;
@@ -52,20 +50,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-
         $customer = Customer::findOrFail($request->customer);
+
         $user = User::find(Auth::id());
 
-        $delivery = DeliveryType::find($request->delivery_type);
-
-        if($delivery->name == 'Domicilio'){
-            $state = HomeState::create();
-        }else{
-            $state = LocalState::create();
-        }
-
-        $order = $state->order()->create([
-                    'customer_id'         => $request->customer,
+        $order = Order::create([
+                    'customer_id'         => $customer->id,
                     'delivery_type_id'    => $request->delivery_type,
                     'address'             => $request->address,
                     'user_id'             => $user->id,
@@ -84,7 +74,6 @@ class OrderController extends Controller
         return response()->json([
             'message'       => 'Pedido creado con éxito',
             'type'          => 'success',
-            'order_detail'  => new OrderResource($order)
         ]);
     }
 
@@ -201,10 +190,17 @@ class OrderController extends Controller
 
         return response()->json([
             'message'       => 'Pedido actualizado con éxito',
-            'type'          => 'success',
-            'order_detail'  => new OrderResource($order)
         ]);
 
+    }
+
+    public function changeStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        $order->update(['status' => $request->status]);
+
+        return response()->json(['message' => 'El estado ha sido actualizado']);
     }
 
     /**
