@@ -65,7 +65,7 @@ add
     </div>
     <div class="image-login absolute right-0 h-full hidden lg:block w-3/5">
         <div class="text-right text-white py-2 px-3">
-            <h1 class="text-3xl font-bold">{{ config('app.name', 'Laravel') }}</h1>
+           
             <h3 class="text-xl">@lang('forms.descriptionapp')</h3>
         </div>
     </div>
