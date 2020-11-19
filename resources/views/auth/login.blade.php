@@ -1,6 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
+add
 <div class="content flex relative w-full md:w-3/5 bg-white rounded-lg shadow-lg overflow-hidden p-0">
     <div class="content-form flex-1 w-full p-8">
         <form action="{{ route('login') }}" method="POST" class="text-blue-900">
